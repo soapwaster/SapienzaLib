@@ -22,7 +22,7 @@ firebase.initializeApp({
 });
 
 var refDB = firebase.database().ref("bookings");
-var refBookDB = firebase.database().ref("books");
+var refBookDB = firebase.database().ref("book");
 
 // respond with "hello world" when a GET request is made to the homepage
 app.get('/', function(req, res) {
@@ -45,7 +45,7 @@ app.get('/book/:isbn', function (req, res) {
       superagent.get('https://www.googleapis.com/books/v1/volumes')
       .query({ q: '+isbn:'+isbn  ,key: API_KEY})
       .end((err, rest) => {
-        if (err) { res.send("No book, sorry"); return; }
+        if (err) { res.send("No book, sorrys"); return; }
         //Ricerca su Firebase, dle nome del libro se esiste. Ovviamente hai 10-40 Libri quindi devi fare il matching cazzuto.
         searchTitle(res, rest, err);
       });
@@ -136,7 +136,7 @@ function searchTitle(res, rest, err){
         .then(function(snapshot) {
           j--;
           if(!snapshot.exists()){
-            res.send("No book, sorry");
+            //res.send("No book, sorryss");
           }
           else{
             bookino.title = element.volumeInfo.title;
